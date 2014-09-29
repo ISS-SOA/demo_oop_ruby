@@ -3,7 +3,7 @@ require 'yaml'
 # WordContent - Add word related methods to classes that mix in this module
 module WordContent
   def words
-    @content.split
+    content.split
   end
 
   def word_count

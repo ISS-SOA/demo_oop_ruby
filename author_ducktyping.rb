@@ -1,4 +1,5 @@
 require './documents_mixin_inherit.rb'
+require './bookstore_meta.rb'
 
 # Author class for use with Document subtypes
 class Author

@@ -25,7 +25,7 @@ module Document
     end
 
     def words
-      @content.split
+      content.split
     end
 
     def word_count

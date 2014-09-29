@@ -20,7 +20,6 @@ module Document
 
   # Document - Stores the title, author, and contents of a document
   class BasicDocument < BaseDocument
-    include WordContent
 
     def initialize(title, type, author)
       @title = title
