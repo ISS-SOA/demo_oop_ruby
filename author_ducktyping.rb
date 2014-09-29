@@ -1,5 +1,6 @@
 require './documents_mixin_inherit.rb'
 
+# Author class for use with Document subtypes
 class Author
   attr_accessor :fname, :mname, :lname
 
@@ -14,12 +15,11 @@ class Author
   end
 end
 
-
-title = "About Me"
-type = "Webpage"
+title = 'About Me'
+type = 'Webpage'
 author = Author.new('Soumya', '', 'Ray')
 
 save_doc = Document::BasicDocument.new(title, type, author)
 File.write('./docs/aboutme.yml', save_doc.to_yaml)
 
-load_doc = YAML::load(File.read('./docs/aboutme.yml'))
+load_doc = YAML.load(File.read('./docs/aboutme.yml'))

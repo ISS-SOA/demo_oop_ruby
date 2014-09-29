@@ -9,6 +9,7 @@ def summary(doc)
   end
 end
 
+# Bookstore - for reading a directory of documents
 class Bookstore
   attr_reader :docs
 

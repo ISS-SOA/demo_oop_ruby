@@ -17,7 +17,7 @@ module Document
     attr_accessor :title, :type, :author, :content
 
     def initialize(path)
-      doc_yaml = YAML::load(File.read(path))
+      doc_yaml = YAML.load(File.read(path))
       @title = doc_yaml['title']
       @type = doc_yaml['type']
       @author = doc_yaml['author']
@@ -25,7 +25,6 @@ module Document
     end
 
     def words
-      read_document
       @content.split
     end
 
@@ -34,8 +33,8 @@ module Document
     end
   end
 
-  # LazyDocument - Loads up information about a document only when needed
-  class LazyDocument
+  # LazyContentDocument - Loads up information about a document only when needed
+  class LazyContentDocument
     attr_writer :title, :type, :author, :content
 
     def initialize(path)
@@ -46,7 +45,7 @@ module Document
     def read_document
       return if @document_read
 
-      doc_yaml = YAML::load(File.read(@path))
+      doc_yaml = YAML.load(File.read(@path))
       @title = doc_yaml['title']
       @type = doc_yaml['type']
       @author = doc_yaml['author']
@@ -76,8 +75,7 @@ module Document
     end
 
     def words
-      read_document
-      @content.split
+      content.split
     end
 
     def word_count

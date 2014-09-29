@@ -1,4 +1,5 @@
 
+# BasicDocument - Most basic version of a document, with no meta/mixins/etc.
 class BasicDocument
   def title
     @title
@@ -24,9 +25,9 @@ class BasicDocument
     @type = new_type
   end
 
-  def initialize(title, author, type)
+  def initialize(title, type, author)
     @title = title
+    @type = type
     @author = author
-    @content = content
   end
 end
