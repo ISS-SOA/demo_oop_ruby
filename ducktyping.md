@@ -1,4 +1,7 @@
 
+Lets see how objects in ruby treat each other and what ducktyping is all about.
+
+```ruby
 class Course
   def initialize
     @students = []
@@ -11,8 +14,9 @@ class Course
   def print_students
     puts "Students: " + @students.join(', ')
   end
-end
+end```
 
+```ruby
 class Student
   attr_accessor :fname, :lname, :age
 
@@ -25,7 +29,7 @@ class Student
   def to_s
     "#{@fname} #{@lname} (age: #{@age})"
   end
-end
+end```
 
 
 #  1: [1,2,3,4,5]
@@ -74,7 +78,7 @@ end
 # 44: Test
 # 45: puts Test
 # 46: Test.to_s
-# 
+#
 # 60: servsec = Course.new
 # 61: puts servsec
 # 62: servsec.add_student('Lee')
