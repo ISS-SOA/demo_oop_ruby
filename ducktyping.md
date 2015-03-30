@@ -1,9 +1,17 @@
 
-Lets see how objects in ruby treat each other and what ducktyping is all about.
+## Object Oriented Programming in Ruby
+
+Lets see how objects in ruby treat each other and what duck typing is all about.
+
+### Ruby classes and objects
+Let's start by creating a Ruby class to store certain information on courses offered in a school.
 
 ```ruby
 class Course
-  def initialize
+  attr_accessor :title
+
+  def initialize(title)
+    @title = title
     @students = []
   end
 
@@ -14,90 +22,103 @@ class Course
   def print_students
     puts "Students: " + @students.join(', ')
   end
-end```
+end
+```
+
+A couple of instance variables were created as part of the class.
+First, `@title` is an instance variable and we create getter and setter methods for it by using `attr_accessor`.
+Second, `@students` is also an instance variable but we do not create any methods that would allow anyone outside the class to access it. Both variables are private to their class by default.
+
+Next, let's look at its methods.
+We create an intializer method (`initialize`) that will set the `@title` to a given title, and then set `@students` as an empty array. We've given the class an `#add_students` method that inserts another element into the `@students` array. Note here that we have not specified what kind of object student must be. Ruby doesn't care. Lastly, there is a method called `#print_students` that simply joins the array of students together and prints it to STDOUT.
+
+Enough talking, let's see our class in action, by running it in Pry.
+
+```ruby
+oopintro = Course.new('Intro to OOP')
+=> #<Course:0x007fb3f31fcc88 @students=[], @title="Intro to OOP">
+```
+We created a new object! Let's see what we can do with it.
+
+```ruby
+puts oopintro
+#<Course:0x007fb3f31fcc88>
+=> nil
+```
+Ok, printing the object to screen doesn't seem to do anything interesting. That hexadecimal number (`0x007fb3f31fcc88`) is just the object's relative address in memory. Let's add some students to this course.
+
+```ruby
+oopintro.add_student('Lee')
+=> ["Lee"]
+
+oopintro.add_student('Elvis')
+=> ["Lee", "Elvis"]
+
+oopintro.print_students
+'Students: Lee, Elvis'
+=> nil
+```
+Sweet! Not only can we add students as `String` objects, we can then print them out easily with the `#print_students` method.
+
+### Duck typing
+
+The above example works fine. But but what if we wanted to represent students with a more complex object than just a `String`? Let's make a `Student` class to do just that.
 
 ```ruby
 class Student
-  attr_accessor :fname, :lname, :age
+  attr_accessor :id, :fname, :lname
 
-  def initialize(fname, lname, age)
+  def initialize(id, fname, lname)
+    @id = id
     @fname = fname
     @lname = lname
-    @age = age
   end
 
   def to_s
-    "#{@fname} #{@lname} (age: #{@age})"
+    "#{@fname} #{@lname} (id: #{@id.to_s})"
   end
-end```
+end
+```
 
+Note that we have not defined what type of variables `id`, `fname`, and `lname` are. Also, you see that we have added our own `#to_s` method! Ruby objects all have a `#to_s` method so that all objects are serializable. We have simply overriden (overloaded) the default `#to_s` method of `Student` so that it becomes something more interesting when we treat it as a `String`.
 
-#  1: [1,2,3,4,5]
-#  2: ['a', 'b', 'c']
-#  3: [1, 'a', :c, 4]
-#  4: arr = [1, 'a', :c, 4]
-#  5: arr[4]
-#  6: arr[3]
-#  7: arr[2]
-#  8: arr
-#  9: soumya = { :name => 'ray', :age => 30, 'lee' => :TA }
-# 10: soumya[:name]
-# 11: soumya['lee']
-# 12: soumya.first
-# 13: soumya[0]
-# 14: soumya[1]
-# 15: :age
-# 16: 'age'
-# 17: 'Age'
-# 18: :Age
-# 19: :Age == :age
-# 20: soumya
-# 21: soumya << {'rebecca' => :director }
-# 22: soumya['rebecca'] = :director
-# 23: soumya
-# 24: soumya['lee']
-# 25: :age.methods
-# 26: :age.methods - Object.methods
-# 27: ls
-# 28: '12' + 4
-# 29: '12'.to_i + 4
-# 30: '12' + 4.to_s
-# 31: ray
-# 32: arr
-# 33: arr << 99
-# 34: '12' + 4
-# 35: 'asdf' << 'foo'
-# 36: @students << 'me'
-# 37: arr
-# 38: puts arr
-# 39: puts arr.each { |e| e.to_s }
-# 40: puts arr.join
-# 41: puts arr.join(', ')
-# 42: class Test
-# 43: end
-# 44: Test
-# 45: puts Test
-# 46: Test.to_s
-#
-# 60: servsec = Course.new
-# 61: puts servsec
-# 62: servsec.add_student('Lee')
-# 63: servsec.add_student('Cesar')
-# 64: servsec.print_students
+Let's create a new `Student` type object and try printing it out.
 
-# 84: Student.new
-# 85: cesar = Student.new('Cesar', 'Ordonez', 24)
-# 86: puts cesar
-# 87: servsec.add_student(cesar)
-# 88: servsec.print_students
-# 89: arr
-# 90: hist
-# 91: arr
-# 92: arr.each { |e| puts e }
-# 93: arr.each { |e| print "#{e}, " }
-# 94: arr.each { |e| print "#{e}, " };
-# 95: arr.each { |e| print "#{e}, " }
-# 96: arr.each { |e| if e.to_s.length > 1; puts "#{e} is long!"; end }
-# 97: arr.reduce { |first, second| first.to_s + ", " + second.to_s }
-# 98: puts arr.reduce { |first, second| first.to_s + ", " + second.to_s }
-# 99: arr.map { |e| e.to_s.upcase }
+```ruby
+cesar = Student.new(9837212738, 'Cesar', 'Ordonez')
+=> #<Student:0x007fd6ab096918
+ # #@fname="Cesar",
+ # @id=9837212738,
+ # @lname="Ordonez">
+
+puts cesar
+'Cesar Ordonez (id: 9837212738)'
+=> nil
+```
+
+Nice! `puts` now prints out something far more useful than just the address of the object. It seems that Ruby is using our `#to_s` method to serialize `cesar`.
+
+But how would we modify the `Course` class so that it will accept `Student` objects?  In many object-oriented languages, we would have to redeclare the type of `@students` array in the `Course` class and rewrite any methods that use it. But not in Ruby.
+
+Here is the magic of duck typing: `Course` doesn't care what kind of student object we give it, as long as it can fulfill any methods that are called on it. Let's simply go ahead and add our newly created `Student` type object to our `oopintro` object.
+
+```ruby
+oopintro.add_student(cesar)
+=> ["Lee",
+ "Elvis",
+ <Student:0x007fd6ab096918
+  @fname="Cesar",
+  @id=9837212738,
+  @lname="Ordonez">]
+```
+
+Great! Ruby allows us to add a completely different type of object to the `@students` array within `oopintro`. But now that we have added students of `String` and `Student` types, what will happen if we call `#print_students`?
+
+```ruby
+oopintro.print_students
+'Students: Lee, Elvis, Cesar Ordonez (id: 9837212738)'
+```
+
+Looks like it prints out each object of its array appropriately! If you look back at our definition of `#print_students` in the `Course` class, you'll see that it uses the `#join` method to convert students into a big string. This means that `#join` is calling the `#to_s` method of each object to serialize them first. It treats our `Student` object just like any other, and calls the custom `#to_s` method we wrote for `Student`.
+
+This is a demonstration of **duck typing**. Ruby doesn't care about the ancestry of objects. It does not discriminate objects based on what class they *inherit* from (the way an aristocratic society might care about your family's background). Instead, it only cares that objects can *fulfill the methods* called upon them (its a true meritocracy!). We call this duck typing because if an object 'walks like a duck and swims like a duck and quacks like a duck' then we can simply treat it like a duck.
