@@ -1,4 +1,3 @@
-
 # BasicDocument - Most basic version of a document, with no meta/mixins/etc.
 class BasicDocument
   def title

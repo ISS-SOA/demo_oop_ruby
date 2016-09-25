@@ -1,40 +1,9 @@
 require 'yaml'
 
 module Document
-  # Document - Stores the title, author, and contents of a document
-  class BasicDocument
-    attr_accessor :title, :type, :author
-
-    def initialize(title, type, author)
-      @title = title
-      @type = type
-      @author = author
-    end
-  end
-
-  # ContentDocument - Reads document from file immediately
-  class ContentDocument
-    attr_accessor :title, :type, :author, :content
-
-    def initialize(path)
-      doc_yaml = YAML.load(File.read(path))
-      @title = doc_yaml['title']
-      @type = doc_yaml['type']
-      @author = doc_yaml['author']
-      @content = doc_yaml['content']
-    end
-
-    def words
-      content.split
-    end
-
-    def word_count
-      words.size
-    end
-  end
-
-  # LazyContentDocument - Loads up information about a document only when needed
+  # Loads document information only when needed
   class LazyContentDocument
+    attr_reader :type
     attr_writer :title, :type, :author, :content
 
     def initialize(path)
@@ -44,13 +13,12 @@ module Document
 
     def read_document
       return if @document_read
-
+      puts('Lazy Load')
       doc_yaml = YAML.load(File.read(@path))
       @title = doc_yaml['title']
       @type = doc_yaml['type']
       @author = doc_yaml['author']
       @content = doc_yaml['content']
-
       @document_read = true
     end
 
