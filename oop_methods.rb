@@ -1,4 +1,3 @@
-
 class Document
   def initialize
     @accessed = 0

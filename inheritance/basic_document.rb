@@ -1,9 +1,8 @@
+require_relative 'base_document'
+
 module Document
   # Stores information about documents
-  class BasicDocument
-
-    attr_accessor :title, :type, :author
-
+  class BasicDocument < BaseDocument
     def initialize(title, type, author)
       @title = title
       @type = type

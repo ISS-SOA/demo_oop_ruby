@@ -1,7 +1,0 @@
---- !ruby/object:Document::BasicDocument
-title: About Me
-type: Webpage
-author: !ruby/object:Author
-  fname: Soumya
-  mname: ''
-  lname: Ray

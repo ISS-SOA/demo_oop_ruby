@@ -1,5 +1,5 @@
-require './documents_mixin_inherit.rb'
-require './bookstore_meta.rb'
+require 'yaml'
+require_relative 'inheritance/basic_document.rb'
 
 # Author class for use with Document subtypes
 class Author
@@ -20,7 +20,8 @@ title = 'About Me'
 type = 'Webpage'
 author = Author.new('Soumya', '', 'Ray')
 
-save_doc = Document::BasicDocument.new(title, type, author)
-File.write('./docs/aboutme.yml', save_doc.to_yaml)
+doc.summary
+# => "About Me is a Webpage by Soumya Ray"
 
-load_doc = YAML.load(File.read('./docs/aboutme.yml'))
+doc = Document::BasicDocument.new(title, type, author)
+puts doc.to_yaml

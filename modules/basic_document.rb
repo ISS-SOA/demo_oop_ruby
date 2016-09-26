@@ -1,5 +1,5 @@
 module Document
-  # Document - Stores the title, author, and contents of a document
+  # Stores information about documents
   class BasicDocument
     attr_reader :type
     attr_accessor :title, :author
