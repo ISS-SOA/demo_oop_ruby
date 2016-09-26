@@ -13,7 +13,7 @@ end
 
 path = File.expand_path(File.join(File.dirname(__FILE__), '../docs/'))
 oop = Document::BasicDocument.new('OOP Tutorial', 'textbook', 'Soumya Ray')
-invictus = Document::ContentDocument("#{path}/invictus.yml")
+invictus = Document::ContentDocument.new("#{path}/invictus.yml")
 
 summary(oop)
 # => "OOP Tutorial is a textbook by Soumya Ray"

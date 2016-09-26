@@ -20,10 +20,6 @@ class BasicDocument
     @author = new_author
   end
 
-  def type=(new_type)
-    @type = new_type
-  end
-
   def initialize(title, type, author)
     @title = title
     @type = type
